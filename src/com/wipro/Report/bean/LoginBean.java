@@ -1,17 +1,14 @@
 package com.wipro.Report.bean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="RPT_LOGIN_TAB")
-class Login{
+public class LoginBean{
 
 	@Id
 	@Column
-	private int RPT_LOGIN_ID;
+	private String RPT_LOGIN_ID;
 	
 	@Column
 	private String RPT_LOGIN_PWD;
@@ -22,11 +19,11 @@ class Login{
 	@Column
 	private String RTP_USR_STATUS;
 
-	public int getRPT_LOGIN_ID() {
+	public String getRPT_LOGIN_ID() {
 		return RPT_LOGIN_ID;
 	}
 
-	public void setRPT_LOGIN_ID(int rPT_LOGIN_ID) {
+	public void setRPT_LOGIN_ID(String rPT_LOGIN_ID) {
 		RPT_LOGIN_ID = rPT_LOGIN_ID;
 	}
 

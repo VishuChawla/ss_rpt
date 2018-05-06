@@ -2,17 +2,11 @@ package com.wipro.Report.bean;
 
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="RPT_PROJECT_TAB")
-public class Project {
+public class ProjectBean {
 	
 	@Id
 	@Column
@@ -25,7 +19,7 @@ public class Project {
 	private String	RPT_PROJECT_MANAGER;
 	
 	@Column
-	private Account RPT_ACCOUNT_ID;
+	private AccountBean RPT_ACCOUNT_ID;
 	
 	@Column
 	private String RPT_DELIVERY_MANAGER;
@@ -63,11 +57,11 @@ public class Project {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "RPT_ACCOUNT_ID")
-    public Account getAccountID() {
+    public AccountBean getAccountID() {
         return RPT_ACCOUNT_ID;
     }
  
-    public void setAccountID(Account account) {
+    public void setAccountID(AccountBean account) {
         this.RPT_ACCOUNT_ID = account;
     }
 
