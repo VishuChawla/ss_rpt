@@ -1,43 +1,46 @@
 package com.wipro.Report.util;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 //import javax.swing.text.StyledEditorKit.BoldAction;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wipro.Report.bean.LoginBean;
 import com.wipro.Report.DAO.LoginDAO;
+import com.wipro.Report.bean.LoginBean;
 
 
 
 @Service("user")
 public class UserImpl implements User{
 
-	@Autowired
-	LoginDAO loginDAO;
 
+	@Autowired
+	LoginDAO loginDAOImp;
 
 	@Override
 	public String login(LoginBean loginBean) {
 		String result="";
+		//loginDAOImp = new LoginDAOImp();
+		System.out.println("UserImpl.. Login Method");
 		boolean res=false;
 		if(loginBean==null || loginBean.getRPT_LOGIN_ID()==null || loginBean.getRPT_LOGIN_PWD()==null)
 		{
 			result="error";
 		}else
 		{
-		 res=loginDAO.authenticate(loginBean);
+		 res=loginDAOImp.authenticate(loginBean);
 		 System.out.println("res   "+res);
 		 if(res==true)
 		 {
-			 String type=loginDAO.authorize(loginBean.getRPT_LOGIN_ID());
+			 String type=loginDAOImp.authorize(loginBean.getRPT_LOGIN_ID());
 			 System.out.println("type   "+type);
 			 loginBean.setRPT_USR_TYP(type);
 			 if(type.equalsIgnoreCase("ADMIN") || type.equalsIgnoreCase("USER"))
 			 {
 				 System.out.println("ADMIN");
-				 boolean change=loginDAO.changeLoginStatus(loginBean, "ACTIVE");
+				 boolean change=loginDAOImp.changeLoginStatus(loginBean, "ACTIVE");
 				 if(change==true)
 				 {
 					 System.out.println("change...."+change);

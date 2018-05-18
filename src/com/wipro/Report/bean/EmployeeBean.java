@@ -8,8 +8,7 @@ import javax.persistence.*;
 @Table(name="RPT_EMPLOYEE_TAB")
 public class EmployeeBean {
 
-	@Id
-	@Column
+
 	private int RPT_EMP_ID;
 	
 	@Column
@@ -38,14 +37,16 @@ public class EmployeeBean {
 	
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "RPT_PROJECT_ID")
-    public ProjectBean getProjectID() {
+    public ProjectBean getRPT_PROJECT_ID() {
         return RPT_PROJECT_ID;
     }
  
-    public void setAccountID(ProjectBean project) {
+    public void setRPT_PROJECT_ID(ProjectBean project) {
         this.RPT_PROJECT_ID = project;
     }
 	
+	@Id
+	@Column
 	public int getRPT_EMP_ID() {
 		return RPT_EMP_ID;
 	}

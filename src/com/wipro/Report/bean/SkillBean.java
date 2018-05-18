@@ -10,7 +10,7 @@ public class SkillBean {
 
 	@Id
 	@Column
-	private String RPT_SKILL_ID;
+	private int RPT_SKILL_ID;
 	
 	@Column
 	private String RPT_SKILL_NAME;
@@ -23,12 +23,14 @@ public class SkillBean {
 	
 	@Column
 	private String ADD_TS;
+	
+	public SkillBean() {}
 
-	public String getRPT_SKILL_ID() {
+	public int getRPT_SKILL_ID() {
 		return RPT_SKILL_ID;
 	}
 
-	public void setRPT_SKILL_ID(String rPT_SKILL_ID) {
+	public void setRPT_SKILL_ID(int rPT_SKILL_ID) {
 		RPT_SKILL_ID = rPT_SKILL_ID;
 	}
 

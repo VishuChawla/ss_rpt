@@ -16,18 +16,25 @@ import com.wipro.Report.bean.LoginBean;
 @Repository("loginDAO")
 public class LoginDAOImp implements LoginDAO{
 
+
 	@Autowired
-	SessionFactory sessionFactory;
+	SessionFactory sessionFactory = null;
+	Session session = null ;
+	Transaction tx = null;
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public boolean authenticate(LoginBean loginBean) {
 		boolean result=false;
-		Session session=sessionFactory.getCurrentSession();
-	    Transaction tx = null;
+
+		System.out.println("LoginDAOImpl..");
+//		Session session=sessionFactory.getCurrentSession();
+	    
 	    try
 	    {
-	    	tx = session.beginTransaction();
+	    	session = sessionFactory.getCurrentSession();
+	    	//tx = session.beginTransaction();
+	    	session.beginTransaction();
 	    	String sql="from LoginBean where RPT_LOGIN_ID=? and RPT_LOGIN_PWD=? and RTP_USR_STATUS=INACTIVE";
 	    	Query query=session.createQuery(sql);
 	    	query.setString(0,loginBean.getRPT_LOGIN_ID());
@@ -57,7 +64,6 @@ public class LoginDAOImp implements LoginDAO{
 		String type="";
 		System.out.println("userid  "+userID);
 		Session session=sessionFactory.getCurrentSession();
-	    Transaction tx = null;
 	    try
 	    {
 	    	tx = session.beginTransaction();
@@ -89,7 +95,6 @@ public class LoginDAOImp implements LoginDAO{
 		
 		System.out.println("userid  "+loginBean.getRPT_LOGIN_ID());
 		Session session=sessionFactory.getCurrentSession();
-	    Transaction tx = null;
 	    try
 	    {
 	    	tx = session.beginTransaction();

@@ -8,8 +8,7 @@ import javax.persistence.*;
 @Table(name="RPT_PROJECT_TAB")
 public class ProjectBean {
 	
-	@Id
-	@Column
+
 	private int RPT_PROJECT_ID;
 	
 	@Column
@@ -30,6 +29,8 @@ public class ProjectBean {
 	@Column
 	private String ADD_TS;
 
+	@Id
+	@Column
 	public int getRPT_PROJECT_ID() {
 		return RPT_PROJECT_ID;
 	}

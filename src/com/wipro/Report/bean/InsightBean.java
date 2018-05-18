@@ -8,15 +8,14 @@ import javax.persistence.*;
 @Table(name="RPT_INSIGHT_TAB")
 public class InsightBean {
 
-	@Id
-	@Column
+	
 	private int RPT_ATTENDEE_ID;
 	
 	@Column
 	private String RPT_SKILL_NAME;
 	
 	@Column
-	private SkillBean skill;
+	private SkillBean RPT_SKILL_ID;
 	
 	@Column
 	private String RPT_JAVA_SPLIT;
@@ -175,11 +174,16 @@ public class InsightBean {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "RPT_SKILL_ID")
     public SkillBean getRPT_SKILL_ID() {
-    	return skill;
+    	return RPT_SKILL_ID;
 
     }
+    
+    public void setRPT_SKILL_ID(SkillBean sb) {
+        this.RPT_SKILL_ID = sb;
+    }
 	
-	
+    @Id
+	@Column
 	public int getRPT_ATTENDEE_ID() {
 		return RPT_ATTENDEE_ID;
 	}
