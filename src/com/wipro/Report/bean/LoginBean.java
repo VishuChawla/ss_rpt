@@ -17,7 +17,7 @@ public class LoginBean{
 	private String RPT_USR_TYP;
 	
 	@Column
-	private String RTP_USR_STATUS;
+	private String RPT_USR_STATUS;
 
 	public String getRPT_LOGIN_ID() {
 		return RPT_LOGIN_ID;
@@ -43,12 +43,12 @@ public class LoginBean{
 		RPT_USR_TYP = rPT_USR_TYP;
 	}
 
-	public String getRTP_USR_STATUS() {
-		return RTP_USR_STATUS;
+	public String getRPT_USR_STATUS() {
+		return RPT_USR_STATUS;
 	}
 
-	public void setRTP_USR_STATUS(String rTP_USR_STATUS) {
-		RTP_USR_STATUS = rTP_USR_STATUS;
+	public void setRPT_USR_STATUS(String rPT_USR_STATUS) {
+		RPT_USR_STATUS = rPT_USR_STATUS;
 	}
 		
 }

@@ -90,7 +90,7 @@ margin-top:50px;
 <body bgcolor="#a3c2c2">
 <jsp:include page="header.jsp" flush="true"/>
 <center>
-<form  class ="f1" action=""  enctype="multipart/form-data" method="post">
+<form  class ="f1" action="loader"  enctype="multipart/form-data" method="post">
 
 
 <input type="file" class="custom-file-input"><br>

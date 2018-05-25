@@ -1,22 +1,30 @@
 package com.wipro.Report.DAO;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.impl.SessionImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wipro.Report.bean.LoginBean;
 
+import oracle.jdbc.OracleTypes;
+
 @Repository("loginDAO")
 public class LoginDAOImp implements LoginDAO{
 
 
+	private final static String STORED_PROC_USER_LOGIN = "call USER_LOGIN(?,?,?,?)";
 	@Autowired
 	SessionFactory sessionFactory = null;
 	Session session = null ;
@@ -32,18 +40,29 @@ public class LoginDAOImp implements LoginDAO{
 	    
 	    try
 	    {
+	    	
 	    	session = sessionFactory.getCurrentSession();
-	    	//tx = session.beginTransaction();
-	    	session.beginTransaction();
-	    	String sql="from LoginBean where RPT_LOGIN_ID=? and RPT_LOGIN_PWD=? and RTP_USR_STATUS=INACTIVE";
-	    	Query query=session.createQuery(sql);
-	    	query.setString(0,loginBean.getRPT_LOGIN_ID());
-	    	query.setString(1,loginBean.getRPT_LOGIN_PWD());
-	    	List<LoginBean> ls=query.list();
+	    	CallableStatement stmt = null;
+	    	String rsType = null;
+	    	String rsStatus = null;
+	    	SessionImpl sessionImpl = (SessionImpl) session;
+	    	Connection conn = (Connection) sessionImpl.connection();
+	    	stmt = (CallableStatement) conn.prepareCall(STORED_PROC_USER_LOGIN);
+	    	stmt.setString(1, loginBean.getRPT_LOGIN_ID());
+	    	stmt.setString(2, loginBean.getRPT_LOGIN_PWD());	    	
+	    	stmt.registerOutParameter(3, OracleTypes.CURSOR);
+	    	stmt.registerOutParameter(4, OracleTypes.CURSOR);
+	    	stmt.execute(); 		
+	    	rsType = stmt.getString(3);
+	    	rsStatus = stmt.getString(4);
+	    	System.out.println("rsType: " + rsType);
+	    	System.out.println("rsStatus: " + rsStatus);
+	    	String ls = "Temp";
 	    	if(ls.isEmpty())
 	    	{
 	    		System.out.println("false");
-	    		result=false;
+	    		result=true;
+//	    		result=false;
 	    	}else
 	    	{
 	    		System.out.println("true");
@@ -61,22 +80,25 @@ public class LoginDAOImp implements LoginDAO{
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public String authorize(String userID) {
-		String type="";
+		String type="ADMIN";
 		System.out.println("userid  "+userID);
 		Session session=sessionFactory.getCurrentSession();
 	    try
 	    {
-	    	tx = session.beginTransaction();
-	    	String sql="from LoginBean where USERID=?";
-	    	Query query=session.createQuery(sql);
-	    	query.setString(0,userID);
-	    	List<LoginBean> ls=query.list();
+//	    	tx = session.beginTransaction();
+//	    	String sql="from LoginBean where USERID=?";
+//	    	Query query=session.createQuery(sql);
+//	    	query.setString(0,userID);
+//	    	List<LoginBean> ls=query.list();
+	    	String ls = "ABC";
+	    	
 	    	if(ls.isEmpty())
 	    	{
-	    		type="INVALID";
+//	    		type="INVALID";
+	    		return type;
 	    	}else
 	    	{
-	    		type=ls.get(0).getRPT_USR_TYP();
+//	    		type=ls.get(0).getRPT_USR_TYP();
 	    		System.out.println("TYPE:  "+type);
 	    	}
 	    	return type;
@@ -97,11 +119,11 @@ public class LoginDAOImp implements LoginDAO{
 		Session session=sessionFactory.getCurrentSession();
 	    try
 	    {
-	    	tx = session.beginTransaction();
-	    	String sql="UPDATE RPT_LOGIN_TAB SET RTP_USR_STATUS=? WHERE RPT_LOGIN_ID=?";
-	    	Query query=session.createQuery(sql);
-	    	query.setString(0,loginStatus);
-	    	query.setString(1, loginBean.getRPT_LOGIN_ID());
+//	    	tx = session.beginTransaction();
+//	    	String sql="UPDATE RPT_LOGIN_TAB SET RTP_USR_STATUS=? WHERE RPT_LOGIN_ID=?";
+//	    	Query query=session.createQuery(sql);
+//	    	query.setString(0,loginStatus);
+//	    	query.setString(1, loginBean.getRPT_LOGIN_ID());
 	    	return true;
 		}
 		catch (Exception e) {

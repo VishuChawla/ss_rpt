@@ -16,7 +16,6 @@ import com.wipro.Report.util.User;
 public class MainController {
 
 	LoginBean loginBean;
-	
 
 	@Autowired
 	User userImpl;
@@ -44,9 +43,9 @@ public class MainController {
 			return "Error";
 		}else {
 				System.out.println("Not empty.." + loginBean.getRPT_LOGIN_ID() + " and " + loginBean.getRPT_LOGIN_PWD());
-				loginBean.setRPT_USR_TYP("ABC");
-				loginBean.setRTP_USR_STATUS("ACTIVE");
-				System.out.println(loginBean.getRPT_LOGIN_ID() + " , " + loginBean.getRPT_LOGIN_PWD() + " , " + loginBean.getRPT_USR_TYP() + " , " + loginBean.getRTP_USR_STATUS());
+//				loginBean.setRPT_USR_TYP("ABC");
+//				loginBean.setRPT_USR_STATUS("ACTIVE");
+				System.out.println(loginBean.getRPT_LOGIN_ID() + " , " + loginBean.getRPT_LOGIN_PWD() + " , " + loginBean.getRPT_USR_TYP() + " , " + loginBean.getRPT_USR_STATUS());
 				String result=userImpl.login(loginBean);
 				System.out.println("result in main: "+ result);
 				if(result.equals("ADMIN") || result.equals("USER")) {
@@ -64,5 +63,47 @@ public class MainController {
 						}
 		}
 			return res;	
+	}
+	
+	
+	@RequestMapping(value="/UploadWFT",method=RequestMethod.POST)
+	public String UploadWFT(){
+		String CurrentOption = "UploadWFT";
+		System.out.println("Choosed Option: " + CurrentOption);;
+		return "browse";
+		
+	}
+	
+	@RequestMapping(value="/UploadInsightRpt",method=RequestMethod.POST)
+	public String UploadInsightRpt(){
+		String CurrentOption = "UploadInsightRpt";
+		System.out.println("Choosed Option: " + CurrentOption);;
+		return "browse";
+		
+	}
+	
+	@RequestMapping(value="/GenerateReport",method=RequestMethod.POST)
+	public String GenerateReport(){
+		String CurrentOption = "GenerateReport";
+		System.out.println("Choosed Option: " + CurrentOption);
+		System.out.println("The controller is going to the Options page because the insigh report would have been downloaded");
+		return "options";
+		
+	}
+	
+	@RequestMapping(value="/loader",method=RequestMethod.POST)
+	public String loader(){
+		String CurrentOption = "Test";
+		System.out.println("Choosed Option: " + CurrentOption);;
+		return "loader";
+		
+	}
+	
+	@RequestMapping(value="/options",method=RequestMethod.GET)
+	public String Options(){
+		String CurrentOption = "Back to Options";
+		System.out.println("Choosed Option: " + CurrentOption);;
+		return "options";
+		
 	}
 }

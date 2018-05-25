@@ -3,16 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> -->
+<meta http-equiv="refresh" content="10;URL=<%=request.getContextPath()%>/options" />
 <title>loader</title>
 <style>
 .loader {
-margin-top:200px;
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-  width: 120px;
-  height: 120px;
+	margin-top:10px;
+  	border: 5px solid #f3f3f3;
+  	border-radius: 50%;
+  	border-top: 5px solid #3498db;
+  	width: 30px;
+  	height: 30px;
 
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
@@ -41,7 +42,7 @@ h2{
 <jsp:include page="header.jsp" flush="true"/>
 <body bgcolor= "a3c2c2">
 <center>
-<h2>Please Wait</h2>
+<h2>Please Wait....</h2>
 
 <div class="loader"></div>
 </center>

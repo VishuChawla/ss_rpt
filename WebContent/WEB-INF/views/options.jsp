@@ -39,13 +39,19 @@
 </style>
 </head><body bgcolor="#a3c2c2">
 <jsp:include page="header.jsp" flush="true"/>
-<form action="" method="post">
+<form action="UploadWFT" method="post">
 <div class="btn-group">
   <button>Upload WFT</button>
+</div>
+</form>
+<form action="UploadInsightRpt" method="post">
+<div class="btn-group">
   <button>Upload Insight Report</button>
-  
-  
-  <button>Generate Report</button>
+</div>
+</form>
+<form action="GenerateReport" method="post">
+<div class="btn-group">
+    <button>Generate Report</button>
 </div>
 </form>
 <jsp:include page="Foot.jsp" flush="true"/>

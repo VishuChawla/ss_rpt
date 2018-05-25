@@ -3,7 +3,7 @@ package com.wipro.Report.bean;
 import javax.persistence.*;
 
 @Entity
-@Table(name="COLM_NME_MAP_TAB")
+@Table(name="RPT_COLM_NME_MAP_TAB")
 public class MappingBean {
 
 	@Id
