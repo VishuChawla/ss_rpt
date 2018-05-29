@@ -22,9 +22,8 @@ public class UserImpl implements User{
 	@Override
 	public String login(LoginBean loginBean) {
 		String result="";
-		//loginDAOImp = new LoginDAOImp();
 		System.out.println("UserImpl.. Login Method");
-		boolean res=false;
+		String res="";
 		if(loginBean==null || loginBean.getRPT_LOGIN_ID()==null || loginBean.getRPT_LOGIN_PWD()==null)
 		{
 			result="error";
@@ -32,28 +31,9 @@ public class UserImpl implements User{
 		{
 		 res=loginDAOImp.authenticate(loginBean);
 		 System.out.println("res   "+res);
-		 if(res==true)
+		 if(res.equalsIgnoreCase("ADMIN") || res.equalsIgnoreCase("USER"))
 		 {
-			 String type=loginDAOImp.authorize(loginBean.getRPT_LOGIN_ID());
-			 System.out.println("type   "+type);
-			 loginBean.setRPT_USR_TYP(type);
-			 if(type.equalsIgnoreCase("ADMIN") || type.equalsIgnoreCase("USER"))
-			 {
-				 System.out.println("ADMIN");
-				 boolean change=loginDAOImp.changeLoginStatus(loginBean, "ACTIVE");
-				 if(change==true)
-				 {
-					 System.out.println("change...."+change);
-					 result=type;
-				 }else
-				 {
-					 result="INVALID";
-					 System.out.println("INVALID");
-				 }
-			 }else
-			 {
-				 result="INVALID";
-			 }
+			 result=res;
 			 
 		}else
 		{
@@ -62,6 +42,7 @@ public class UserImpl implements User{
 		}
 		
      	return result;
+     	
 	}
 
 
@@ -77,35 +58,4 @@ public class UserImpl implements User{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-//	@Override
-//	@Transactional(propagation=Propagation.REQUIRED)
-//	public boolean logout(String userId) {
-//		boolean result=true;
-//		
-//		try
-//		{
-//		CredentialsBean credentialsBean=credentialsDAO.findByID(userId);
-//		System.out.println("in user logout method i m bean:  "+credentialsBean!=null);
-//		if(credentialsBean!=null)
-//		{
-//			boolean res=authentication.changeLoginStatus(credentialsBean, 0);
-//			if(res!=false)
-//			{
-//				return true;
-//			}else
-//			{
-//				return false;
-//			}
-//		}else
-//		{
-//			return false;
-//		}
-//
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//			return false;
-//		}
-//
-//	}
 }

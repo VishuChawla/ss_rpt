@@ -90,15 +90,14 @@ margin-top:50px;
 <body bgcolor="#a3c2c2">
 <jsp:include page="header.jsp" flush="true"/>
 <center>
-<form  class ="f1" action="loader"  enctype="multipart/form-data" method="post">
-
-
-<input type="file" class="custom-file-input"><br>
-<div id="d1">
-<button class="button"><span>upload </span></button>
-</div>
-
+<form  class ="f1" action="loader" method="post" enctype="multipart/form-data">
+	<!-- <input type="file" class="custom-file-input" name="path"><br> -->
+	<input type="file" name="path"><br> 
+	<div id="d1">
+		<button class="button"><span>upload </span></button>
+	</div>
 </form>
+
 </center>
 
 <jsp:include page="Foot.jsp" flush="true"/>

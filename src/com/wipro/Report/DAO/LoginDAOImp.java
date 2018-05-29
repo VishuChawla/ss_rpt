@@ -2,16 +2,12 @@ package com.wipro.Report.DAO;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.impl.SessionImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,12 +28,10 @@ public class LoginDAOImp implements LoginDAO{
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public boolean authenticate(LoginBean loginBean) {
-		boolean result=false;
+	public String authenticate(LoginBean loginBean) {
+		String result="";
 
 		System.out.println("LoginDAOImpl..");
-//		Session session=sessionFactory.getCurrentSession();
-	    
 	    try
 	    {
 	    	
@@ -57,78 +51,21 @@ public class LoginDAOImp implements LoginDAO{
 	    	rsStatus = stmt.getString(4);
 	    	System.out.println("rsType: " + rsType);
 	    	System.out.println("rsStatus: " + rsStatus);
-	    	String ls = "Temp";
-	    	if(ls.isEmpty())
+	    	if(rsType.isEmpty())
 	    	{
 	    		System.out.println("false");
-	    		result=true;
-//	    		result=false;
+	    		result="NONE";
 	    	}else
 	    	{
 	    		System.out.println("true");
-	    		result=true;
+	    		result=rsType;
 	    	}
 	    	return result;
 	    	
 	    }catch (Exception e) {
 	    	
 	    	e.printStackTrace();
-	    	return false;
-		}
-	}
-
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public String authorize(String userID) {
-		String type="ADMIN";
-		System.out.println("userid  "+userID);
-		Session session=sessionFactory.getCurrentSession();
-	    try
-	    {
-//	    	tx = session.beginTransaction();
-//	    	String sql="from LoginBean where USERID=?";
-//	    	Query query=session.createQuery(sql);
-//	    	query.setString(0,userID);
-//	    	List<LoginBean> ls=query.list();
-	    	String ls = "ABC";
-	    	
-	    	if(ls.isEmpty())
-	    	{
-//	    		type="INVALID";
-	    		return type;
-	    	}else
-	    	{
-//	    		type=ls.get(0).getRPT_USR_TYP();
-	    		System.out.println("TYPE:  "+type);
-	    	}
-	    	return type;
-	    	
-	    
-	    }catch (Exception e) {
-			e.printStackTrace();
-			return "INVALID";
-		}
-
-	}
-
-	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
-	public boolean changeLoginStatus(LoginBean loginBean, String loginStatus) {
-		
-		System.out.println("userid  "+loginBean.getRPT_LOGIN_ID());
-		Session session=sessionFactory.getCurrentSession();
-	    try
-	    {
-//	    	tx = session.beginTransaction();
-//	    	String sql="UPDATE RPT_LOGIN_TAB SET RTP_USR_STATUS=? WHERE RPT_LOGIN_ID=?";
-//	    	Query query=session.createQuery(sql);
-//	    	query.setString(0,loginStatus);
-//	    	query.setString(1, loginBean.getRPT_LOGIN_ID());
-	    	return true;
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			return false;
+	    	return "NONE";
 		}
 	}
 }

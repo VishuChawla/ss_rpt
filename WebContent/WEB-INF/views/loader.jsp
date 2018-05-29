@@ -4,8 +4,21 @@
 <html>
 <head>
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"> -->
-<meta http-equiv="refresh" content="10;URL=<%=request.getContextPath()%>/options" />
+<!-- <meta http-equiv="refresh" content="10;URL=<%=request.getContextPath()%>/options" /> -->
 <title>loader</title>
+<script type="text/javascript">
+	function loadDoc() {
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	     	console.log(this.responseText);	 
+	     	window.location = "/Report/optionsAfterLoad";
+	    }
+	  };
+	  xhttp.open("GET", "/Report/options", true);
+	  xhttp.send();
+	}
+</script>
 <style>
 .loader {
 	margin-top:10px;
@@ -40,12 +53,15 @@ h2{
 </style>
 </head>
 <jsp:include page="header.jsp" flush="true"/>
-<body bgcolor= "a3c2c2">
+<body bgcolor= "a3c2c2" onload="loadDoc()">
 <center>
 <h2>Please Wait....</h2>
 
 <div class="loader"></div>
 </center>
+
+<div id="optionshtml"> </div>
+
 </body>
 <jsp:include page="Foot.jsp" flush="true"/>
 </html>
