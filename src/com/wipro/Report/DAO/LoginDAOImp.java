@@ -5,7 +5,6 @@ import java.sql.Connection;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.impl.SessionImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,7 +23,6 @@ public class LoginDAOImp implements LoginDAO{
 	@Autowired
 	SessionFactory sessionFactory = null;
 	Session session = null ;
-	Transaction tx = null;
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
