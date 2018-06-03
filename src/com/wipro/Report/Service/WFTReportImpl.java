@@ -8,22 +8,31 @@ import java.util.List;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.wipro.Report.DAO.WFTReportDAOImpl;
+import com.wipro.Report.DAO.WFTReportDAO;
 import com.wipro.Report.bean.AccountBean;
 import com.wipro.Report.bean.ProjectBean;
 import com.wipro.Report.bean.SkillBean;
 
+@Service
 public class WFTReportImpl implements WFTReport{
+	
+	
+	@Autowired
+	WFTReportDAO wftReportDAOImpl;
 
 	@Override
 	@SuppressWarnings("resource")
 	public String readFromExcel(InputStream inpStream) {
 		 
+		
+	
 		ArrayList<SkillBean> listSkillBeans = new ArrayList<SkillBean>();
 		ArrayList<AccountBean> listAccountBeans = new ArrayList<AccountBean>();
 		ArrayList<ProjectBean> listProjectBeans = new ArrayList<ProjectBean>();
-		WFTReportDAOImpl wftReportDAOImpl = new WFTReportDAOImpl(); 
+		
 		
 		XSSFWorkbook myExcelBook;
 		
@@ -80,6 +89,7 @@ public class WFTReportImpl implements WFTReport{
 		    	}
 		}
 		
+		
 //		SkillBean skillBeantemp = new SkillBean();
 //		for (int ik = 0; ik < listSkillBeans.size(); ik++) {
 //			skillBeantemp = listSkillBeans.get(ik);
@@ -87,17 +97,13 @@ public class WFTReportImpl implements WFTReport{
 //					"Skill Category: " + skillBeantemp.getRPT_CTRY());
 //		}
 		
-		
-		AccountBean accountBean = new AccountBean();
-		for (int ik = 0; ik < listAccountBeans.size(); ik++) {
-			accountBean = listAccountBeans.get(ik);
-			System.out.println("Account Name: " + accountBean.getRPT_ACCOUNT_NAME() + 
-					"Vertical name: " + accountBean.getRPT_VERTICAL());
-		}
-		System.out.println("Sizeeeee:   " + listAccountBeans.size());
-		
-		
-		
+//		AccountBean accountBean = new AccountBean();
+//		for (int ik = 0; ik < listAccountBeans.size(); ik++) {
+//			accountBean = listAccountBeans.get(ik);
+//			System.out.println("Account Name: " + accountBean.getRPT_ACCOUNT_NAME() + 
+//					"Vertical name: " + accountBean.getRPT_VERTICAL());
+//		}
+//		System.out.println("Sizeeeee:   " + listAccountBeans.size());
 		
 //    	ProjectBean listProjectBeansTemp = new ProjectBean();
 //		for (int ik = 0; ik < listProjectBeans.size(); ik++) {
@@ -108,8 +114,8 @@ public class WFTReportImpl implements WFTReport{
 //		}
 		
 		
-		
-//		wftReportDAOImpl.uploadSkills(listSkillBeans);     // Need to keep only this statement...
+		wftReportDAOImpl.uploadSkills(listSkillBeans);     // Need to keep only this statement...
+//		wftReportDAOImpl.uploadAccounts(listAccountBeans);	// Need to keep only this statement...
 //		wftReportDAOImpl.uploadProjects(listProjectBeans);  // Need to keep only this statement...
 		
 		

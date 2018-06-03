@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.wipro.Report.Service.WFTReport;
-import com.wipro.Report.Service.WFTReportImpl;
 import com.wipro.Report.bean.LoginBean;
 import com.wipro.Report.util.User;
 
@@ -27,7 +26,9 @@ public class MainController {
 
 	@Autowired
 	User userImpl;
- 
+	
+	@Autowired
+	WFTReport wFTReportImpl;
 	
 	@RequestMapping(value="/start",method=RequestMethod.GET)
 	public String doStart()
@@ -106,9 +107,13 @@ public class MainController {
 	public String Options(HttpServletRequest session) throws IOException{
 		String CurrentOption = "Running loader but processing PATH veriable..."; 
 		String result= null;
+		
 		InputStream inputStream = (InputStream) session.getSession().getAttribute("path");
-		WFTReport WFTReportImpl = new WFTReportImpl();
-		String res = WFTReportImpl.readFromExcel(inputStream);
+		System.out.println("-----------------------------------------------" + inputStream);
+
+//		wFTReportImpl = new WFTReportImpl();
+		String res = wFTReportImpl.readFromExcel(inputStream);
+		System.out.println("-----------------------------------------------");
 		if (res.equalsIgnoreCase("Success")){
 			result = "options";
 		}else{
@@ -135,34 +140,5 @@ public class MainController {
 		
 	} 
 	
-//	@SuppressWarnings("resource")
-//	public void readFromExcel(InputStream inpStream) throws IOException { 
-//	
-//		XSSFWorkbook myExcelBook = new XSSFWorkbook(inpStream); //To read the workbook
-//		List<String> sheetNames = new ArrayList<String>(); //List to store All Sheet names present in the provided workbook
-//		for (int i=0; i<myExcelBook.getNumberOfSheets(); i++) {    // Loop to read the sheetnames andstore in List
-//		    sheetNames.add( myExcelBook.getSheetName(i) );
-//		}
-//		System.out.println("Sheet Numbers are: " + sheetNames.size());
-//		for(int i=1; i<sheetNames.size()-1; i++)						//Loop to iterated all the sheets one by one 
-//		{
-//			XSSFSheet myExcelSheet = myExcelBook.getSheet(sheetNames.get(i));  //To store the sheet name and read
-//			System.out.println("Sheet name is: " + sheetNames.get(i));
-////			int totalRow = myExcelSheet.getLastRowNum();
-////			System.out.println(totalRow);
-//			for (int k=5; k<=myExcelSheet.getLastRowNum(); k++){         //Start Iteration from the row 5
-//				XSSFRow row = myExcelSheet.getRow(k);
-//					int serial = (int) row.getCell(0).getNumericCellValue();   //Row:5, cell(column):0 and store in serial variable 
-//					int ID = (int)row.getCell(1).getNumericCellValue();		   //Row:5, cell(column):1 and store in ID variable
-//					String name = row.getCell(2).getStringCellValue();		   //Row:5, cell(column):2 and store in name variable
-//					String Account = row.getCell(3).getStringCellValue();      //Row:5, cell(column):3 and store in Account variable
-//					String Vertical = row.getCell(4).getStringCellValue();     //Row:5, cell(column):4 and store Vertical variable
-//					Date Tar_mon = row.getCell(14).getDateCellValue();	       //Row:5, cell(column):14 and store Tar_mon variable
-//					
-//					System.out.println("Serial Number: "+ serial + "\t" + "EmpID: " + ID
-//						+ "\t" + "Emp Name: " + name + "\t" + "Accouunt: " + Account
-//						+ "\t" + "Vertical: " + Vertical + "\t" + "Target month: " + Tar_mon + "\n");
-//			}
-//		}
-//	}
+
 }
