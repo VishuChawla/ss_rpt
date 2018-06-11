@@ -27,7 +27,7 @@ public class EmployeeBean {
 	private String RPT_PMRY_SKILL;
 
 	@Column
-	private char RPT_CUR_CMPTCY_LVL;
+	private String RPT_CUR_CMPTCY_LVL;
 	
 	@Column
 	private Date LAST_UPDATED_TS;
@@ -87,11 +87,11 @@ public class EmployeeBean {
 		RPT_PMRY_SKILL = rPT_PMRY_SKILL;
 	}
 
-	public char getRPT_CUR_CMPTCY_LVL() {
+	public String getRPT_CUR_CMPTCY_LVL() {
 		return RPT_CUR_CMPTCY_LVL;
 	}
 
-	public void setRPT_CUR_CMPTCY_LVL(char rPT_CUR_CMPTCY_LVL) {
+	public void setRPT_CUR_CMPTCY_LVL(String rPT_CUR_CMPTCY_LVL) {
 		RPT_CUR_CMPTCY_LVL = rPT_CUR_CMPTCY_LVL;
 	}
 

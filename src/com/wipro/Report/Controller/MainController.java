@@ -69,17 +69,19 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/UploadWFT",method=RequestMethod.POST)
-	public String UploadWFT(){
+	public String UploadWFT(HttpServletRequest request){
 		String CurrentOption = "UploadWFT";
 		System.out.println("Choosed Option: " + CurrentOption);
+		request.getSession().setAttribute("upload", "UploadWFT");
 		return "browse";
 		
 	}
 	
 	@RequestMapping(value="/UploadInsightRpt",method=RequestMethod.POST)
-	public String UploadInsightRpt(){
+	public String UploadInsightRpt(HttpServletRequest request){
 		String CurrentOption = "UploadInsightRpt";
-		System.out.println("Choosed Option: " + CurrentOption);;
+		request.getSession().setAttribute("upload", "UploadInsightRpt");
+		System.out.println("Choosed Option: " + CurrentOption);
 		return "browse";
 		
 	}
@@ -107,30 +109,27 @@ public class MainController {
 	public String Options(HttpServletRequest session) throws IOException{
 		String CurrentOption = "Running loader but processing PATH veriable..."; 
 		String result= null;
-		
+		String res = null;
+		System.out.println("Choosed Option: " + CurrentOption);
 		InputStream inputStream = (InputStream) session.getSession().getAttribute("path");
 		System.out.println("-----------------------------------------------" + inputStream);
-
-//		wFTReportImpl = new WFTReportImpl();
-		String res = wFTReportImpl.readFromExcel(inputStream);
+		String option = (String) session.getSession().getAttribute("upload");
+		if (option.equals("UploadWFT")){
+			res = wFTReportImpl.readFromExcel(inputStream);
+		}else if (option.equals("UploadInsightRpt")){
+			res = null;
+		}
+//      ----------------------------------------------------------------------------------------------		
 		System.out.println("-----------------------------------------------");
 		if (res.equalsIgnoreCase("Success")){
 			result = "options";
 		}else{
 			result = "Error";
 		}
-		
-//		try {
-//			System.out.println("This is the session attribute :    " + inputStream);
-//			readFromExcel(inputStream);
-//			
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		System.out.println("Choosed Option: " + CurrentOption);
 		return result;
 		
 	}
+
 	
 	@RequestMapping(value="/optionsAfterLoad",method=RequestMethod.GET)
 	public String Options(){
@@ -139,6 +138,8 @@ public class MainController {
 		return "options";
 		
 	} 
+	
+
 	
 
 }
